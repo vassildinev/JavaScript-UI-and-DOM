@@ -20,43 +20,55 @@ window.onload = function () {
     document.body.appendChild(canvas);
 
     var points = [
-            {
-                get x() {
-                    return center.x + Math.cos(this.angle / 180 * Math.PI) * center.radius * 4
-                },
-
-                get y() {
-                    return center.y + Math.sin(this.angle / 180 * Math.PI) * center.radius * 4
-                },
-
-                angle: getRandomAngle()
+        {
+            get x() {
+                return center.x + Math.cos(this.angle / 180 * Math.PI) * center.radius * 4
             },
 
-            {
-                get x() {
-                    return center.x + Math.cos(this.angle / 180 * Math.PI) * center.radius * scale.x * 5
-                },
-
-                get y() {
-                    return center.y + Math.sin(this.angle / 180 * Math.PI) * center.radius * scale.y * 5
-                },
-
-                angle: getRandomAngle()
+            get y() {
+                return center.y + Math.sin(this.angle / 180 * Math.PI) * center.radius * 4
             },
 
-            {
-                get x() {
-                    return center.x + Math.cos(this.angle / 180 * Math.PI) * center.radius * scale.y * 5
-                },
+            angle: getRandomAngle()
+        },
 
-                get y() {
-                    return center.y + Math.sin(this.angle / 180 * Math.PI) * center.radius * scale.x * 5
-                },
+        {
+            get x() {
+                return center.x + Math.cos(this.angle / 180 * Math.PI) * center.radius * scale.x * 5
+            },
 
-                angle: getRandomAngle()
-            }];
+            get y() {
+                return center.y + Math.sin(this.angle / 180 * Math.PI) * center.radius * scale.y * 5
+            },
 
-    function getRandomAngle () {
+            angle: getRandomAngle()
+        },
+        
+        {
+            get x() {
+                return center.x + Math.cos(this.angle / 180 * Math.PI) * center.radius * scale.x * 5
+            },
+
+            get y() {
+                return center.y + Math.sin(this.angle / 180 * Math.PI) * center.radius * scale.y * 5
+            },
+
+            angle: getRandomAngle()
+        },
+
+        {
+            get x() {
+                return center.x + Math.cos(this.angle / 180 * Math.PI) * center.radius * scale.y * 5
+            },
+
+            get y() {
+                return center.y + Math.sin(this.angle / 180 * Math.PI) * center.radius * scale.x * 5
+            },
+
+            angle: getRandomAngle()
+        }];
+
+    function getRandomAngle() {
         return Math.random() * 360;
     }
 
