@@ -99,6 +99,23 @@ window.onload = function () {
             hero.y += hero.speed * timeElapsed;
         }
 
+        // Check for player out of the field
+        if(hero.x < 32) {
+            hero.x = canvas.width - 32;
+        }
+
+        if(hero.x + 32 > canvas.width) {
+            hero.x = 32;
+        }
+
+        if(hero.y < 32) {
+            hero.y = canvas.height - 32;
+        }
+
+        if(hero.y + 32 > canvas.height) {
+            hero.y = 32;
+        }
+
         // Check for touching
         if (hero.x <= (monster.x + 32) &&
                 monster.x <= (hero.x + 32) &&
