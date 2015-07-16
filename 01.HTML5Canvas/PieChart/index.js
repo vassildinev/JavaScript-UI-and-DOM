@@ -47,16 +47,21 @@ window.onload = function () {
     }
 
 
-    var currentDrawingAngle = 0;
+    var currentDrawingAngle = 0,
 
-    var x = 500, y = 220, text;
+        textObj = {
+            x: 500,
+            y: 200
+        },
 
-    function drawData(data) {
+        text;
+
+    function drawData(ctx, data) {
         for (var i in data) {
             if (data.hasOwnProperty(i)) {
-                var percentage = data[i];
-                var fromAngle = currentDrawingAngle;
-                var toAngle = currentDrawingAngle + percentage / 100 * 360;
+                var percentage = data[i],
+                    fromAngle = currentDrawingAngle,
+                    toAngle = currentDrawingAngle + percentage / 100 * 360;
 
                 currentDrawingAngle = toAngle;
 
@@ -69,17 +74,17 @@ window.onload = function () {
 
                 ctx.fillStyle = color;
                 ctx.beginPath();
-                ctx.arc(x, y, 8, 0, 2 * Math.PI);
+                ctx.arc(textObj.x, textObj.y, 8, 0, 2 * Math.PI);
                 ctx.fill();
 
                 ctx.font = "14px Tahoma";
                 ctx.fillStyle = 'black';
-                ctx.fillText(text, x + 20, y + 5);
+                ctx.fillText(text, textObj.x + 20, textObj.y + 5);
 
-                y += 30;
+                textObj.y += 30;
             }
         }
     }
 
-    drawData(data);
+    drawData(ctx, data);
 };
