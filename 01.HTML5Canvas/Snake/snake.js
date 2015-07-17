@@ -1,5 +1,14 @@
 window.onload = function () {
-    var canvas, ctx, isDead, score = 0, i, len, snake, coin,
+    Array.prototype.enqueue = function (item) {
+        this.push(item);
+        return this;
+    };
+
+    Array.prototype.peekFirst = function () {
+        return this[0];
+    };
+
+    var canvas, ctx, isDead, score = 0, keysPressed = [], i, len, snake, coin,
         CONSTANTS = {
             SNAKE_RADIUS: 7,
             COIN_RADIUS: 7
@@ -17,15 +26,17 @@ window.onload = function () {
 
     function getSnakeObject(canvas) {
         return {
-            x: 0.5 * canvas.width,
-            y: 0.5 * canvas.height,
-            r: CONSTANTS.SNAKE_RADIUS,
-            speed: {
-                x: 1,
-                y: 0
+            head: {
+                x: 0.5 * canvas.width,
+                y: 0.5 * canvas.height,
+                r: CONSTANTS.SNAKE_RADIUS,
+                speed: {
+                    x: 1,
+                    y: 0
+                }
             },
 
-            size: 1
+            tail: []
         };
     }
 
@@ -43,7 +54,7 @@ window.onload = function () {
 
     function drawSnake(ctx, snake) {
         ctx.beginPath();
-        ctx.arc(snake.x, snake.y, CONSTANTS.SNAKE_RADIUS, 0, 2 * Math.PI);
+        ctx.arc(snake.head.x, snake.head.y, CONSTANTS.SNAKE_RADIUS, 0, 2 * Math.PI);
         ctx.fillStyle = 'rgb(255, 0, 0)';
         ctx.fill();
         ctx.closePath();
@@ -64,21 +75,21 @@ window.onload = function () {
     }
 
     function update() {
-        snake.x += snake.speed.x;
-        snake.y += snake.speed.y;
+        snake.head.x += snake.head.speed.x;
+        snake.head.y += snake.head.speed.y;
 
         checkSnakePosition(snake);
     }
 
     function checkSnakePosition(snake) {
-        if (snake.x + CONSTANTS.SNAKE_RADIUS >= canvas.width ||
-            snake.x <= CONSTANTS.SNAKE_RADIUS ||
-            snake.y + CONSTANTS.SNAKE_RADIUS >= canvas.height ||
-            snake.y <= CONSTANTS.SNAKE_RADIUS) {
+        if (snake.head.x + CONSTANTS.SNAKE_RADIUS >= canvas.width ||
+            snake.head.x <= CONSTANTS.SNAKE_RADIUS ||
+            snake.head.y + CONSTANTS.SNAKE_RADIUS >= canvas.height ||
+            snake.head.y <= CONSTANTS.SNAKE_RADIUS) {
             isDead = true;
         }
 
-        if ((snake.x - coin.x) * (snake.x - coin.x) + (snake.y - coin.y) * (snake.y - coin.y) < 4 * CONSTANTS.SNAKE_RADIUS * CONSTANTS.SNAKE_RADIUS) {
+        if ((snake.head.x - coin.x) * (snake.head.x - coin.x) + (snake.head.y - coin.y) * (snake.head.y - coin.y) < 4 * CONSTANTS.SNAKE_RADIUS * CONSTANTS.SNAKE_RADIUS) {
             score += 10;
             coin = getCoinObject(canvas);
         }
@@ -98,28 +109,34 @@ window.onload = function () {
     function addEventListeners() {
         addEventListener('keydown', function (e) {
             changeSnakeDirection(e.keyCode);
+            logChangeOfDirection({
+                x: snake.head.x,
+                y: snake.head.y});
         });
+    }
+
+    function logChangeOfDirection(position) {
     }
 
     function changeSnakeDirection(keyCode) {
         if (keyCode === 37) {
-            snake.speed.x = -1;
-            snake.speed.y = 0;
+            snake.head.speed.x = -1;
+            snake.head.speed.y = 0;
         }
 
         if (keyCode === 38) {
-            snake.speed.x = 0;
-            snake.speed.y = -1;
+            snake.head.speed.x = 0;
+            snake.head.speed.y = -1;
         }
 
         if (keyCode === 39) {
-            snake.speed.x = 1;
-            snake.speed.y = 0;
+            snake.head.speed.x = 1;
+            snake.head.speed.y = 0;
         }
 
         if (keyCode === 40) {
-            snake.speed.x = 0;
-            snake.speed.y = 1;
+            snake.head.speed.x = 0;
+            snake.head.speed.y = 1;
         }
     }
 
