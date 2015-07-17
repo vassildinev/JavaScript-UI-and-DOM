@@ -8,7 +8,7 @@ window.onload = function () {
         return this[0];
     };
 
-    var canvas, ctx, isDead, score = 0, keysPressed = [], i, len, snake, coin,
+    var canvas, ctx, isDead, score = 0, logger = [], i, len, snake, coin, fps = 100, currentFrame = 0, count = 1,
         CONSTANTS = {
             SNAKE_RADIUS: 7,
             COIN_RADIUS: 7
@@ -53,11 +53,22 @@ window.onload = function () {
     }
 
     function drawSnake(ctx, snake) {
+        // head
         ctx.beginPath();
         ctx.arc(snake.head.x, snake.head.y, CONSTANTS.SNAKE_RADIUS, 0, 2 * Math.PI);
         ctx.fillStyle = 'rgb(255, 0, 0)';
         ctx.fill();
         ctx.closePath();
+
+        // tail
+        for(i = 0, len = snake.tail.length; i < len; i += 1) {
+            var currentTailObject = snake.tail[i];
+            ctx.beginPath();
+            ctx.arc(currentTailObject.x, currentTailObject.y, CONSTANTS.SNAKE_RADIUS, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgb(0, 255, 0)';
+            ctx.fill();
+            ctx.closePath();
+        }
     }
 
     function drawCoin(ctx, coin) {
@@ -75,8 +86,24 @@ window.onload = function () {
     }
 
     function update() {
+        logHeadPosition({
+            x: snake.head.x,
+            y: snake.head.y
+        });
+
+        // head
         snake.head.x += snake.head.speed.x;
         snake.head.y += snake.head.speed.y;
+
+        // tail
+        for(i = 0, len = snake.tail.length; i < len; i += 1) {
+            snake.tail[i].x = logger[snake.tail[i].frame].x;
+            snake.tail[i].y = logger[snake.tail[i].frame].y;
+
+            snake.tail[i].frame += 1;
+        }
+
+        console.log(snake.tail);
 
         checkSnakePosition(snake);
     }
@@ -91,6 +118,12 @@ window.onload = function () {
 
         if ((snake.head.x - coin.x) * (snake.head.x - coin.x) + (snake.head.y - coin.y) * (snake.head.y - coin.y) < 4 * CONSTANTS.SNAKE_RADIUS * CONSTANTS.SNAKE_RADIUS) {
             score += 10;
+            snake.tail.push({
+                frame: currentFrame - 13 * count
+            });
+
+            count++;
+
             coin = getCoinObject(canvas);
         }
 
@@ -99,7 +132,8 @@ window.onload = function () {
     function runFrame() {
         update();
         render(ctx);
-        if (!isDead) setTimeout(runFrame, 10);
+        currentFrame += 1;
+        if (!isDead) setTimeout(runFrame, 1000 / fps);
     }
 
     function clearCanvas(canvas, ctx) {
@@ -109,13 +143,11 @@ window.onload = function () {
     function addEventListeners() {
         addEventListener('keydown', function (e) {
             changeSnakeDirection(e.keyCode);
-            logChangeOfDirection({
-                x: snake.head.x,
-                y: snake.head.y});
         });
     }
 
-    function logChangeOfDirection(position) {
+    function logHeadPosition(position) {
+            logger.push(position);
     }
 
     function changeSnakeDirection(keyCode) {
