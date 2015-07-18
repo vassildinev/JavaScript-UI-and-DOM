@@ -182,7 +182,7 @@ window.onload = function () {
 
         if (isDead) {
             var person = prompt('Please enter your name:');
-            while (person === '' || prompt === null) {
+            while (person === '' || person === null) {
                 person = prompt('Please enter your name:');
             }
 
