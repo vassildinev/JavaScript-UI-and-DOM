@@ -2,7 +2,7 @@ window.onload = function () {
     // heart equation:
     // x^2 + (6 * y / 5 - Math.sqrt(Math.abs(x)))^2 = 1
 
-    var canvas, ctx, center,
+    var canvas, ctx,
         x, y1, y2;
 
     function loadCanvas() {
@@ -37,10 +37,6 @@ window.onload = function () {
 
     (function () {
         loadCanvas();
-        center =  {
-            x: canvas.width / 2,
-            y: canvas.height / 2
-        };
         draw();
     }())
 };
