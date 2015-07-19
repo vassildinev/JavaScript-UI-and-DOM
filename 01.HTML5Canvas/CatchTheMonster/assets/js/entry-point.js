@@ -100,20 +100,20 @@ window.onload = function () {
         }
 
         // Check for player out of the field
-        if(hero.x < 32) {
+        if(hero.x < 0) {
             hero.x = canvas.width - 32;
         }
 
         if(hero.x + 32 > canvas.width) {
-            hero.x = 32;
+            hero.x = 0;
         }
 
-        if(hero.y < 32) {
+        if(hero.y < 0) {
             hero.y = canvas.height - 32;
         }
 
         if(hero.y + 32 > canvas.height) {
-            hero.y = 32;
+            hero.y = 0;
         }
 
         // Check for touching
