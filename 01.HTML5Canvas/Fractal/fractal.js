@@ -1,7 +1,7 @@
 window.onload = function () {
     var CONSTANTS = {
         CENTER_RADIUS: 80,
-        DRAWING_RADIUS: 80
+        DRAWING_RADIUS: 80 // the ratio between the two radii sharpens or softens the tips
     };
 
     var canvas, ctx, center, drawingObj;
@@ -26,8 +26,8 @@ window.onload = function () {
 
     function getSpecialDrawingObject() {
         return {
-            x: center.x + CONSTANTS.DRAWING_RADIUS * Math.sin((600 - (3 / 2) * center.angle) / 180 * Math.PI),
-            y: center.y + CONSTANTS.DRAWING_RADIUS * Math.cos((600 - (3 / 2) * center.angle) / 180 * Math.PI),
+            x: center.x + CONSTANTS.DRAWING_RADIUS * Math.sin((90 - (3 / 2) * center.angle) / 180 * Math.PI),
+            y: center.y + CONSTANTS.DRAWING_RADIUS * Math.cos((90 - (3 / 2) * center.angle) / 180 * Math.PI),
             angle: 0
         };
     }
@@ -40,14 +40,14 @@ window.onload = function () {
         drawingObj.x = center.x + CONSTANTS.DRAWING_RADIUS * Math.sin((90 - (3 / 2) * center.angle) / 180 * Math.PI);
         drawingObj.y = center.y + CONSTANTS.DRAWING_RADIUS * Math.cos((90 - (3 / 2) * center.angle) / 180 * Math.PI);
 
-        // the fraction 3 / 2 -> 3 + 2 = 5 tips, determines the number of tips; note: 4 / 2 === 2 / 1 -> 3 tips
+        // the ratio 3 / 2 -> 3 + 2 = 5 tips, determines the number of tips; note: 4 / 2 === 2 / 1 -> 3 tips
         drawingObj.angle += 1;
     }
 
     function render() {
         ctx.beginPath();
         //ctx.arc(center.x, center.y, 3, 0, 2 * Math.PI);
-        ctx.arc(drawingObj.x, drawingObj.y, 1, 0, 2 * Math.PI);
+        ctx.arc(drawingObj.x, drawingObj.y, 1.5, 0, 2 * Math.PI);
         ctx.fillStyle = 'black';
         ctx.fill();
         ctx.closePath();
