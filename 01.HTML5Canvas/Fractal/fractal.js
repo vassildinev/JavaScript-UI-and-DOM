@@ -27,8 +27,7 @@ window.onload = function () {
     function getSpecialDrawingObject() {
         return {
             x: center.x + CONSTANTS.DRAWING_RADIUS * Math.sin((90 - (3 / 2) * center.angle) / 180 * Math.PI),
-            y: center.y + CONSTANTS.DRAWING_RADIUS * Math.cos((90 - (3 / 2) * center.angle) / 180 * Math.PI),
-            angle: 0
+            y: center.y + CONSTANTS.DRAWING_RADIUS * Math.cos((90 - (3 / 2) * center.angle) / 180 * Math.PI)
         };
     }
 
@@ -41,7 +40,6 @@ window.onload = function () {
         drawingObj.y = center.y + CONSTANTS.DRAWING_RADIUS * Math.cos((90 - (3 / 2) * center.angle) / 180 * Math.PI);
 
         // the ratio 3 / 2 -> 3 + 2 = 5 tips, determines the number of tips; note: 4 / 2 === 2 / 1 -> 3 tips
-        drawingObj.angle += 1;
     }
 
     function render() {
