@@ -2,7 +2,8 @@ window.onload = function () {
     var CONSTANTS = require('./common/constants.js');
     var bird = require('./game-objects/bird.js').init('assets/images/sprites/experiment.png');
     var cloud = require('./game-objects/cloud.js').init('assets/images/cloud.png');
-    var sea = require('./game-objects/sea.js').init('assets/images/sea.png');
+    var sea = require('./game-objects/sea.js').init('assets/images/sea-mod.png');
+
     var clouds = Array.apply(null, {length: 3})
         .map(function () {
             return Object.create(cloud);
@@ -54,9 +55,13 @@ window.onload = function () {
                 item.update();
             });
 
+            sea.update();
+
             clouds.forEach(function (item) {
                 item.render(ctx);
             });
+
+            sea.render(ctx);
             bird.render(ctx);
         }, 50);
     }

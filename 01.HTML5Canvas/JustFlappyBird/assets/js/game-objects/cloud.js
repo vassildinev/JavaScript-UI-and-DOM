@@ -11,7 +11,7 @@ var cloud = (function () {
                 this.scale = ((Math.random() * 5 | 0) + 1);
                 this.x = CONSTANTS.CANVAS_WIDTH - this.width;
                 this.y = 0;
-                this.speedX = 3;
+                this.speedX = 1;
 
                 return this;
             }

@@ -10,6 +10,9 @@ var CONSTANTS = (function () {
 
         CLOUD_WIDTH: 256,
         CLOUD_HEIGHT: 256,
+
+        SEA_WIDTH: 981,
+        SEA_HEIGHT: 156
     }
 }());
 
@@ -109,7 +112,7 @@ var cloud = (function () {
                 this.scale = ((Math.random() * 5 | 0) + 1);
                 this.x = CONSTANTS.CANVAS_WIDTH - this.width;
                 this.y = 0;
-                this.speedX = 3;
+                this.speedX = 1;
 
                 return this;
             }
@@ -146,14 +149,31 @@ var sea = (function () {
             value: function (imagePath) {
                 this.image = new Image();
                 this.image.src = imagePath;
-                this.height = 256;
-                this.width = 256;
-                this.scale = ((Math.random() * 5 | 0) + 1);
-                this.x = CONSTANTS.CANVAS_WIDTH - this.width;
-                this.y = 0;
-                this.speedX = 3;
+                this.height = CONSTANTS.SEA_HEIGHT;
+                this.width = CONSTANTS.SEA_WIDTH;
+                this.scale = 0.9;
+                this.x = 0;
+                this.y = CONSTANTS.CANVAS_HEIGHT - this.height * 0.5 * this.scale;
+                this.speedX = 2;
 
                 return this;
+            }
+        },
+
+        update: {
+            value: function () {
+                this.x -= this.speedX;
+
+                if (this.x < -this.scale * this.width) {
+                    this.x = -50;
+                }
+            }
+        },
+
+        render: {
+            value: function (ctx) {
+                ctx.drawImage(this.image, this.x, this.y, this.scale * this.width, this.scale * this.height);
+                ctx.drawImage(this.image, this.x + this.scale * this.width - 50, this.y, this.scale * this.width, this.scale * this.height);
             }
         }
     });
@@ -167,7 +187,8 @@ window.onload = function () {
     var CONSTANTS = require('./common/constants.js');
     var bird = require('./game-objects/bird.js').init('assets/images/sprites/experiment.png');
     var cloud = require('./game-objects/cloud.js').init('assets/images/cloud.png');
-    var sea = require('./game-objects/sea.js').init('assets/images/sea.png');
+    var sea = require('./game-objects/sea.js').init('assets/images/sea-mod.png');
+
     var clouds = Array.apply(null, {length: 3})
         .map(function () {
             return Object.create(cloud);
@@ -219,9 +240,13 @@ window.onload = function () {
                 item.update();
             });
 
+            sea.update();
+
             clouds.forEach(function (item) {
                 item.render(ctx);
             });
+
+            sea.render(ctx);
             bird.render(ctx);
         }, 50);
     }

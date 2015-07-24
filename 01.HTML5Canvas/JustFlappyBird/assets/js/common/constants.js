@@ -9,6 +9,9 @@ var CONSTANTS = (function () {
 
         CLOUD_WIDTH: 256,
         CLOUD_HEIGHT: 256,
+
+        SEA_WIDTH: 981,
+        SEA_HEIGHT: 156
     }
 }());
 
