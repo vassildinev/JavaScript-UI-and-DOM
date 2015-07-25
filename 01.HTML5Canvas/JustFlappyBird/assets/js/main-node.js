@@ -29,7 +29,7 @@ window.onload = function () {
             }
         });
 
-        window.addEventListener('click', function () {
+        window.addEventListener('touchstart', function () {
                 if (bird.hasToJump) {
                     bird.time = 0;
                 } else {
