@@ -1,11 +1,11 @@
 var CONSTANTS = require('../common/constants.js');
+var gameObject = require('./game-object.js');
 var sea = (function () {
-    var sea = {};
+    var sea = Object.create(gameObject);
     Object.defineProperties(sea, {
         init: {
             value: function (imagePath) {
-                this.image = new Image();
-                this.image.src = imagePath;
+                gameObject.init.call(this, imagePath);
                 this.height = CONSTANTS.SEA_HEIGHT;
                 this.width = CONSTANTS.SEA_WIDTH;
                 this.scale = 0.9;

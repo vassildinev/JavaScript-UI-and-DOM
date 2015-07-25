@@ -1,11 +1,11 @@
 var CONSTANTS = require('../common/constants.js');
+var gameObject = require('./game-object.js');
 var bird = (function () {
-    var bird = {};
+    var bird = Object.create(gameObject);
     Object.defineProperties(bird, {
         init: {
             value: function (imagePath) {
-                this.image = new Image();
-                this.image.src = imagePath;
+                gameObject.init.call(this, imagePath);
                 this.height = CONSTANTS.BIRD_HEIGHT;
                 this.width = CONSTANTS.BIRD_WIDTH;
                 this.hasToJump = false;
