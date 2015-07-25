@@ -11,7 +11,10 @@ var CONSTANTS = (function () {
         CLOUD_HEIGHT: 256,
 
         SEA_WIDTH: 981,
-        SEA_HEIGHT: 156
+        SEA_HEIGHT: 156,
+
+        PIPES_WIDTH: 100,
+        PIPES_HEIGHT: 600
     }
 }());
 
