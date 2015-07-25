@@ -9,7 +9,7 @@ var CONSTANTS = (function () {
         BIRD_SIZE: 2.2,
 
         CLOUD_WIDTH: 256,
-        CLOUD_HEIGHT: 256,
+        CLOUD_HEIGHT: 156,
 
         SEA_WIDTH: 981,
         SEA_HEIGHT: 156,
@@ -41,13 +41,13 @@ var background = (function () {
 
     for (var i in clouds) {
         if (clouds.hasOwnProperty(i)) {
-            clouds[i].x += (Math.random() * 100 + 256) + 256 * i;
+            clouds[i].x += (256 * i + Math.random() * 200);
         }
     }
 
     for (var j in pipes) {
         if (pipes.hasOwnProperty(j)) {
-            pipes[j].x += (Math.random() * 200 + 200) + 200 * j;
+            pipes[j].x += (Math.random() * 200 + 300) * j;
         }
     }
 
@@ -112,7 +112,8 @@ var bird = (function () {
                 this.x = (CONSTANTS.CANVAS_WIDTH - this.width) / 2;
                 this.y = (CONSTANTS.CANVAS_HEIGHT - this.height) / 2;
                 this.speedX = 0;
-                this.startSpeedY = 50;
+                this.startSpeedY = 20;
+                this.acceleration = 8;
                 this.frameX = 0;
                 this.frameY = 0;
                 this.time = 0;
@@ -125,7 +126,7 @@ var bird = (function () {
         update: {
             value: function () {
                 if (this.isInBeginningStage) {
-                    this.time = this.startSpeedY / 15; // 15 is the acceleration
+                    this.time = this.startSpeedY / this.acceleration; // 15 is the acceleration
                 }
 
                 if (this.hasToJump || this.isInBeginningStage) {
@@ -134,14 +135,14 @@ var bird = (function () {
                         this.hasToJump = true;
                     }
 
-                    this.y -= (this.startSpeedY - 15 * this.time);
+                    this.y -= (this.startSpeedY - this.acceleration * this.time);
                     this.x += this.speedX;
                     this.time += 0.5;
 
                     if (this.y < 0) {
                         this.y = 0;
                     }
-                    if (this.y - (this.startSpeedY - 15 * this.time) > CONSTANTS.CANVAS_HEIGHT - 0.5 * this.height) {
+                    if (this.y - (this.startSpeedY - this.acceleration * this.time) > CONSTANTS.CANVAS_HEIGHT - 0.5 * this.height) {
                         this.y = CONSTANTS.CANVAS_HEIGHT - 0.5 * this.height;
                         this.hasToJump = false;
                         this.time = 0;
@@ -188,7 +189,7 @@ var cloud = (function () {
                 gameObject.init.call(this, imagePath);
                 this.height = CONSTANTS.CLOUD_HEIGHT;
                 this.width = CONSTANTS.CLOUD_WIDTH;
-                this.scale = ((Math.random() * 5 | 0) + 1);
+                this.scale = ((Math.random() * 4 | 0) + 2);
                 this.x = CONSTANTS.CANVAS_WIDTH - this.width;
                 this.y = 0;
                 this.speedX = 1;
@@ -262,7 +263,8 @@ var pipe = (function (){
                 this.width = CONSTANTS.PIPES_WIDTH;
                 this.height = CONSTANTS.PIPES_HEIGHT;
                 this.x = CONSTANTS.CANVAS_WIDTH - this.width;
-                this.speedX = 3;
+                this.y = - Math.random() * 230 - 30;
+                this.speedX = 5;
 
                 return this;
             }
@@ -271,12 +273,17 @@ var pipe = (function (){
         update: {
             value: function () {
                 this.x -= this.speedX;
+
+                if(this.x < -this.width) {
+                    this.x = CONSTANTS.CANVAS_WIDTH;
+                    this.y = - Math.random() * 230 - 30;
+                }
             }
         },
 
         render: {
             value: function (ctx) {
-                ctx.drawImage(this.image, this.x, this.y, CONSTANTS.PIPES_WIDTH, CONSTANTS.PIPES_HEIGHT);
+                ctx.drawImage(this.image, this.x, this.y, CONSTANTS.PIPES_WIDTH, CONSTANTS.PIPES_HEIGHT * 1.5);
             }
         }
     });
@@ -359,7 +366,7 @@ window.onload = function () {
             }
         });
 
-        window.addEventListener('click', function () {
+        window.addEventListener('touchstart', function () {
                 if (bird.hasToJump) {
                     bird.time = 0;
                 } else {
@@ -385,7 +392,7 @@ window.onload = function () {
             clearContext();
             background.render(ctx);
             bird.render(ctx);
-        }, 50);
+        }, 40);
     }
 
     (function () {

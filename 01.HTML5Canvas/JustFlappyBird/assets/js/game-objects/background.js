@@ -18,13 +18,13 @@ var background = (function () {
 
     for (var i in clouds) {
         if (clouds.hasOwnProperty(i)) {
-            clouds[i].x += (Math.random() * 100 + 256) + 256 * i;
+            clouds[i].x += (256 * i + Math.random() * 200);
         }
     }
 
     for (var j in pipes) {
         if (pipes.hasOwnProperty(j)) {
-            pipes[j].x += (Math.random() * 200 + 200) + 200 * j;
+            pipes[j].x += (Math.random() * 200 + 300) * j;
         }
     }
 

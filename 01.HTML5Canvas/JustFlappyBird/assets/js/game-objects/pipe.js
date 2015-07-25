@@ -9,7 +9,8 @@ var pipe = (function (){
                 this.width = CONSTANTS.PIPES_WIDTH;
                 this.height = CONSTANTS.PIPES_HEIGHT;
                 this.x = CONSTANTS.CANVAS_WIDTH - this.width;
-                this.speedX = 3;
+                this.y = - Math.random() * 230 - 30;
+                this.speedX = 5;
 
                 return this;
             }
@@ -18,12 +19,17 @@ var pipe = (function (){
         update: {
             value: function () {
                 this.x -= this.speedX;
+
+                if(this.x < -this.width) {
+                    this.x = CONSTANTS.CANVAS_WIDTH;
+                    this.y = - Math.random() * 230 - 30;
+                }
             }
         },
 
         render: {
             value: function (ctx) {
-                ctx.drawImage(this.image, this.x, this.y, CONSTANTS.PIPES_WIDTH, CONSTANTS.PIPES_HEIGHT);
+                ctx.drawImage(this.image, this.x, this.y, CONSTANTS.PIPES_WIDTH, CONSTANTS.PIPES_HEIGHT * 1.5);
             }
         }
     });

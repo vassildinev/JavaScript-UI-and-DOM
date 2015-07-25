@@ -55,7 +55,7 @@ window.onload = function () {
             clearContext();
             background.render(ctx);
             bird.render(ctx);
-        }, 50);
+        }, 40);
     }
 
     (function () {

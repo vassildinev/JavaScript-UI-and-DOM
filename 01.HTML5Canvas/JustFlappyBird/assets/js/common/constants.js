@@ -8,7 +8,7 @@ var CONSTANTS = (function () {
         BIRD_SIZE: 2.2,
 
         CLOUD_WIDTH: 256,
-        CLOUD_HEIGHT: 256,
+        CLOUD_HEIGHT: 156,
 
         SEA_WIDTH: 981,
         SEA_HEIGHT: 156,

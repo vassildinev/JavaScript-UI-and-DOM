@@ -8,7 +8,7 @@ var cloud = (function () {
                 gameObject.init.call(this, imagePath);
                 this.height = CONSTANTS.CLOUD_HEIGHT;
                 this.width = CONSTANTS.CLOUD_WIDTH;
-                this.scale = ((Math.random() * 5 | 0) + 1);
+                this.scale = ((Math.random() * 4 | 0) + 2);
                 this.x = CONSTANTS.CANVAS_WIDTH - this.width;
                 this.y = 0;
                 this.speedX = 1;
