@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testing Task-1</title>
+</head>
+<body>
+<div id="root">
+    <a href="#" class="button"></a>
+    <a href="#" class="button"></a>
+    <br/>
+
+    <div class="content">Content</div>
+    <a href="#" class="button"></a>
+    <br/>
+
+    <div class="content">Content</div>
+    <a href="#" class="button"></a>
+    <br/>
+
+    <div class="content">Content</div>
+    <a href="#" class="button"></a>
+    <a href="#" class="button"></a>
+    <br/>
+
+    <div class="content">Content</div>
+    <a href="#" class="button"></a>
+    <a href="#" class="button"></a>
+    <a href="#" class="button"></a>
+    <br/>
+
+    <div class="content">Content</div>
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="task-2.js"></script>
+<script>
+    var result = solve();
+    var container = document.createElement('div'),
+            count = 15,
+            possibleTags = ['a', 'button', 'p', 'div'],
+            i,
+            buttonNode,
+            contentNode,
+            tag;
+
+    container.id = 'root';
+    for (i = 0; i < count; i += 1) {
+        tag = possibleTags[(Math.random() * possibleTags.length) | 0];
+        buttonNode = document.createElement(tag);
+        buttonNode.className = 'button';
+        if (i === ((count / 2) | 0)) {
+            buttonNode.id = 'the-button';
+        }
+        container.appendChild(buttonNode);
+
+        possibleTags[(Math.random() * possibleTags.length) | 0];
+        contentNode = document.createElement(tag);
+        contentNode.className = 'content';
+        container.appendChild(contentNode);
+    }
+    document.body.innerHTML = container.outerHTML;
+
+    result('#root');
+
+    var theButton = document.getElementById('the-button');
+
+    var theContent = theButton.nextElementSibling;
+    while (theContent && theContent.className.indexOf('content') < 0) {
+        theContent = theContent.nextElementSibling;
+    }
+
+    var event = document.createEvent('MouseEvents');
+    event.initMouseEvent('click', true, true);
+    theButton.dispatchEvent(event);
+
+    console.log(theButton);
+    console.log(theContent);
+    console.log(theButton.innerHTML === 'show');
+    console.log(theContent.style.display === 'none');
+
+    theButton.dispatchEvent(event);
+    console.log(theButton.innerHTML === 'hide');
+    console.log(theContent.style.display === '');
+</script>
+</body>
+</html>
