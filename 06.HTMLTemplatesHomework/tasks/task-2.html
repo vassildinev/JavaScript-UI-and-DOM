@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Handlebars homework</title>
+    <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="task-2.js"></script>
+    <script id="pesho" type="text/x-handlebars-template">
+
+    </script>
+</head>
+<body>
+<script>
+    var result = solve();
+    result('#pesho');
+    var obj = {
+        animals: [{
+            name: 'Lion',
+            url: "https://susanmcmovies.files.wordpress.com/2014/12/the-lion-king-wallpaper-the-lion-king-2-simbas-pride-4685023-1024-768.jpg"
+        }, {
+            name: 'Turtle',
+            url: 'http://www.enkivillage.com/s/upload/images/a231e4349b9e3f28c740d802d4565eaf.jpg'
+        }, {
+            name: 'Dog'
+        }, {
+            name: 'Cat',
+            url: 'http://i.imgur.com/Ruuef.jpg'
+        }, {
+            name: 'Dog Again'
+        }]
+    };
+
+    var template = $('#pesho').html();
+    var compiledTemplate = Handlebars.compile(template);
+    var readyHtml = compiledTemplate(obj);
+    $('body').append((readyHtml));
+
+</script>
+</body>
+</html>

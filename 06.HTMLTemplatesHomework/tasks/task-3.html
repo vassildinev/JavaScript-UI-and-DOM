@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Handlebars homework</title>
+</head>
+<body>
+<ul id="books-list" data-template="book-item-template"></ul>
+<script id="book-item-template" type="…">
+  <li class="book-item">
+    <a href="/#books/{{id}}">
+      <strong>{{title}}</strong>
+    </a>
+  </li>
+
+</script>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="task-3.js"></script>
+<script src="../node_modules/handlebars/dist/handlebars.js"></script>
+<script>
+    var books = [{id: 5, title: 'Pesho'}, {id: 1, title: 'Gosho'}, {id: 2, title: 'Stamat'}];
+    solve()();
+    $('#books-list').listview(books);
+</script>
+</body>
+</html>
