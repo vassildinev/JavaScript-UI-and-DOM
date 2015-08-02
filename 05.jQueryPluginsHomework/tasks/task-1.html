@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .dropdown-list {
+            background: #333;
+            color: white
+        }
+
+        .dropdown-list .options-container {
+            background: #777;
+            width: 99%;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>Sample Solution 2</h1>
+<select>
+    <option value="value-1">Option 1</option>
+    <option value="value-2">Option 2</option>
+    <option value="value-3">Option 3</option>
+    <option value="value-4">Option 4</option>
+    <option value="value-5">Option 5</option>
+</select>
+
+<p>You can try to unminify if, but it is easier to just solve it :)</p>
+
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="task-1.js"></script>
+<!--<script src="task-1.js"></script>-->
+<script>
+
+    var func = solve();
+    var id = 'the-select',
+            select = document.createElement('select'),
+            count = 5;
+    select.id = id;
+
+    for (var i = 0; i < count; i += 1) {
+        var option = document.createElement('option');
+        option.innerHTML = 'Option #' + (i + 1);
+        option.value = (i + 1) + '';
+        select.appendChild(option);
+    }
+
+    document.body.innerHTML = select.outerHTML;
+
+    func('#' + id);
+
+    var clickEvent = document.createEvent('MouseEvents');
+    clickEvent.initMouseEvent('click', true, true);
+
+    var $dropdown = $('.dropdown-list');
+
+    var $current = $dropdown.find('.current');
+    $current.get(0).dispatchEvent(clickEvent);
+
+    var clickedOption = $dropdown.find('.dropdown-item').get(Math.floor(count / 2));
+    clickedOption.dispatchEvent(clickEvent);
+
+    console.log($('#' + id).val());
+    console.log(clickedOption.getAttribute('data-value'));
+
+    var $options = $dropdown.find('.dropdown-item');
+
+    //$options.each(function (index, option) {
+    //    var $option = $(option);
+    //    var $node = $option;
+    //    while (!($node.hasClass('dropdown-list')) && $node.css('display') !== 'none') {
+    //        $node = $node.parent();
+    //    }
+//
+    //    expect($node.hasClass('dropdown-list')).not.to.be.true;
+    //});
+</script>
+</body>
+</html>
