@@ -3,7 +3,7 @@ function solve() {
         var select = $(selector),
             options = ($(selector + ' option')),
             dropDownList = $('<div/>').addClass('dropdown-list'),
-            current = $('<div/>').addClass('current').html('Option1'),
+            current = $('<div/>').addClass('current').html(options.val()),
             optionsContainer = $('<div/>')
                 .addClass('options-container')
                 .css({
