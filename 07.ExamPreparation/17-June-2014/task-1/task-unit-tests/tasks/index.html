@@ -1,54 +1,89 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Task 1 - JavaScript</title>	
+    <meta charset="UTF-8">
+    <title>Task 1 - JavaScript</title>
 </head>
 <body>
-	<div id="container">
-	</div>
-	<script src="task-1.js"></script>
-	<script type="text/javascript">
-		var animals = [{
-			title: 'Cats',
-			url: 'images/cats.jpg'
-		}, {
-			title: 'Cow',
-			url: 'images/cow.jpg'
-		}, {
-			title: 'Dogs',
-			url: 'images/dogs.jpg'
-		}, {
-			title: 'Еagle',
-			url: 'images/eagle.jpg'
-		}, {
-			title: 'Elephant',
-			url: 'images/elephant.jpg'
-		}, {
-			title: 'Hamster',
-			url: 'images/hamster.jpg'
-		}, {
-			title: 'Horse',
-			url: 'images/horse.jpg'
-		}, {
-			title: 'Lion',
-			url: 'images/lion.jpg'
-		}, {
-			title: 'Rabbits',
-			url: 'images/rabbits.jpg'
-		}, {
-			title: 'Rhinos',
-			url: 'images/rhinos.jpg'
-		}, {
-			title: 'Squirrel',
-			url: 'images/squirrel.jpg'
-		}, {
-			title: 'Tigers',
-			url: 'images/tigers.jpg'
-		}];
-		window.onload = function () {
-			solve()('#container', animals);
-		};
-	</script>
+<div id="container">
+</div>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="task-1.js"></script>
+<script type="text/javascript">
+    var animals = [{
+        title: 'Cats',
+        url: 'images/cats.jpg'
+    }, {
+        title: 'Cow',
+        url: 'images/cow.jpg'
+    }, {
+        title: 'Dogs',
+        url: 'images/dogs.jpg'
+    }, {
+        title: 'Еagle',
+        url: 'images/eagle.jpg'
+    }, {
+        title: 'Elephant',
+        url: 'images/elephant.jpg'
+    }, {
+        title: 'Hamster',
+        url: 'images/hamster.jpg'
+    }, {
+        title: 'Horse',
+        url: 'images/horse.jpg'
+    }, {
+        title: 'Lion',
+        url: 'images/lion.jpg'
+    }, {
+        title: 'Rabbits',
+        url: 'images/rabbits.jpg'
+    }, {
+        title: 'Rhinos',
+        url: 'images/rhinos.jpg'
+    }, {
+        title: 'Squirrel',
+        url: 'images/squirrel.jpg'
+    }, {
+        title: 'Tigers',
+        url: 'images/tigers.jpg'
+    }];
+    window.onload = function () {
+        var items = [],
+                count = 5,
+                i,
+                id = 'root';
+        for (i = 0; i < count; i += 1) {
+            items.push({
+                title: `Image #${i}
+        `,
+            url: `
+            http://test-url-${i}.com`
+                    }
+        )
+            ;
+        }
+        document.body.innerHTML =`<div id = "${id}" > </div>`;
+        var fakejQuery = $;
+        $ = undefined;
+        solve()('#' + id, items);
+        $ = fakejQuery;
+
+        var $root = $('#' + id);
+
+        var $imagePreview = $root.find('.image-preview');
+
+        var hasContent = false;
+        $imagePreview.find('*').each(function (index, node){
+                    var $node = $(node);
+                    if (hasContent) {
+                        return;
+                    }
+                    if ($node.text().trim() === items[0].title.trim()) {
+                        hasContent = true;
+                    }
+                });
+        console.log(hasContent);
+    };
+</script>
 </body>
 </html>

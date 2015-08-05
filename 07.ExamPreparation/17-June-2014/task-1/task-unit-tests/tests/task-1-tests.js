@@ -102,11 +102,11 @@ describe('Task #1 Tests', function () {
       var hasContent = false;
       $imagePreview.find('*')
         .each(function (index, node) {
+            var $node = $(node);
         if (hasContent) {
           return;
         }
-        var $node = $(node);
-        if ($node.html() === items[0].title) {
+        if ($node.text().trim() === items[0].title.trim()) {
           hasContent = true;
         }
       });
@@ -141,7 +141,7 @@ describe('Task #1 Tests', function () {
           return;
         }
         var $node = $(node);
-        if ($node.html() === items[0].title) {
+        if ($node.text().trim() === items[0].title.trim()) {
           hasContent = true;
         }
       });
