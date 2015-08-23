@@ -31,6 +31,12 @@ var pipe = (function (){
             value: function (ctx) {
                 ctx.drawImage(this.image, this.x, this.y, CONSTANTS.PIPES_WIDTH, CONSTANTS.PIPES_HEIGHT * 1.5);
             }
+        },
+
+        setX: {
+            value: function(value) {
+                this.x = value;
+            }
         }
     });
 
